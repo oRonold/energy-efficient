@@ -17,8 +17,6 @@ import java.util.Set;
 public class Perfil {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gs_perfil_seq")
-    @SequenceGenerator(name = "gs_perfil_seq", sequenceName = "tb_gs_perfil_seq", allocationSize = 1)
     @Column(name = "cd_perfil")
     private Long id;
 
