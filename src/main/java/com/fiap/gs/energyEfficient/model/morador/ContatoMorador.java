@@ -24,4 +24,9 @@ public class ContatoMorador {
 
     @Column(name = "nr_telefone", nullable = false, unique = true, length = 15)
     private String telefone;
+
+    @OneToOne
+    @JoinColumn(name = "cd_morador")
+    private Morador morador;
+
 }

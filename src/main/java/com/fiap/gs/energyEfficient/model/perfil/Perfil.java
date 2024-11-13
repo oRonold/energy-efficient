@@ -1,9 +1,12 @@
 package com.fiap.gs.energyEfficient.model.perfil;
 
+import com.fiap.gs.energyEfficient.model.morador.Morador;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,4 +24,8 @@ public class Perfil {
 
     @Column(name = "nm_perfil", nullable = false)
     private String nome;
+
+    @ManyToMany(mappedBy = "perfis")
+    private Set<Morador> moradores;
+
 }

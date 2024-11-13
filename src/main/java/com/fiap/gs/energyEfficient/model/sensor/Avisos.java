@@ -21,4 +21,9 @@ public class Avisos {
 
     @Column(name = "ds_mensagem", nullable = false)
     private String mensagem;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_sensor")
+    private Sensor sensor;
+
 }

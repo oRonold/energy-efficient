@@ -1,9 +1,12 @@
 package com.fiap.gs.energyEfficient.model.sensor;
 
+import com.fiap.gs.energyEfficient.model.morador.Morador;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +24,14 @@ public class Sensor {
 
     @Column(name = "nm_sensor", nullable = false)
     private String nome;
+
+    @OneToMany(mappedBy = "sensor")
+    private List<Medicao> medicoes;
+
+    @OneToMany(mappedBy = "sensor")
+    private List<Avisos> avisos;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_morador")
+    private Morador morador;
 }

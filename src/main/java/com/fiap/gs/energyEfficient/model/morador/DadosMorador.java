@@ -24,7 +24,7 @@ public class DadosMorador {
     @Column(name = "nr_cpf", nullable = false, unique = true, length = 15)
     private String cpf;
 
-    @Column(name = "ds_senha", nullable = false, length = 15)
+    @Column(name = "ds_senha", nullable = false)
     private String senha;
 
     @Column(name = "dt_nascimento", nullable = false)
@@ -32,4 +32,9 @@ public class DadosMorador {
 
     @Column(name = "nr_rg", nullable = false, unique = true, length = 15)
     private String rg;
+
+    @OneToOne
+    @JoinColumn(name = "cd_morador")
+    private Morador morador;
+
 }

@@ -36,4 +36,8 @@ public class Medicao {
 
     @Column(name = "vl_consumo", nullable = false, precision = 5, scale = 2)
     private BigDecimal valorConsumo;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_sensor")
+    private Sensor sensor;
 }
