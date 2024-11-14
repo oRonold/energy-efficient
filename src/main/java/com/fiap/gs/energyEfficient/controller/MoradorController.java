@@ -3,6 +3,7 @@ package com.fiap.gs.energyEfficient.controller;
 import com.fiap.gs.energyEfficient.model.morador.dto.CriarMoradorDTO;
 import com.fiap.gs.energyEfficient.model.morador.dto.DetalhesMoradorDTO;
 import com.fiap.gs.energyEfficient.services.MoradorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ public class MoradorController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DetalhesMoradorDTO> cadastrar(@RequestBody CriarMoradorDTO dto, UriComponentsBuilder builder){
+    public ResponseEntity<DetalhesMoradorDTO> cadastrar(@Valid @RequestBody CriarMoradorDTO dto, UriComponentsBuilder builder){
         var morador = service.cadastrar(dto);
         var uri = builder.path("/{id}").buildAndExpand(morador).toUri();
         return ResponseEntity.created(uri).body(new DetalhesMoradorDTO(morador));

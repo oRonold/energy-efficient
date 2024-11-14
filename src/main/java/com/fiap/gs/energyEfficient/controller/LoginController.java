@@ -3,6 +3,7 @@ package com.fiap.gs.energyEfficient.controller;
 import com.fiap.gs.energyEfficient.infrastructure.security.TokenDTO;
 import com.fiap.gs.energyEfficient.model.morador.dto.LoginMoradorDTO;
 import com.fiap.gs.energyEfficient.services.MoradorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ public class LoginController {
     private MoradorService service;
 
     @PostMapping
-    public ResponseEntity<TokenDTO> login(@RequestBody LoginMoradorDTO dto){
+    public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginMoradorDTO dto){
         var token = service.login(dto);
         return ResponseEntity.ok(new TokenDTO(token));
     }
