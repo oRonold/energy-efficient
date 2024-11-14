@@ -29,7 +29,7 @@ public record CriarMoradorDTO(
         @Past
         LocalDate dataNascimento,
         @NotEmpty
-        @Max(value = 15)
+        @Length(max = 15)
         String rg,
         @NotEmpty
         String role) {

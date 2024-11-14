@@ -1,11 +1,13 @@
 package com.fiap.gs.energyEfficient.model.sensor;
 
 import com.fiap.gs.energyEfficient.model.morador.Morador;
+import com.fiap.gs.energyEfficient.model.sensor.dto.CriarSensorDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -31,7 +33,13 @@ public class Sensor {
     @OneToMany(mappedBy = "sensor")
     private List<Avisos> avisos;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cd_morador")
     private Morador morador;
+
+    public Sensor(CriarSensorDTO dto){
+        this.nome = dto.nome();
+        medicoes = new ArrayList<>();
+        avisos = new ArrayList<>();
+    }
 }

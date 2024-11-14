@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.POST, "/moradores").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/moradores/{id}").hasAuthority("ROLE_ADMIN");
+                    req.requestMatchers(HttpMethod.POST, "/admin").hasAuthority("ROLE_ADMIN");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

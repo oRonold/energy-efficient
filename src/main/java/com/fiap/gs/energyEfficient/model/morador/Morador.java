@@ -53,7 +53,7 @@ public class Morador implements UserDetails {
     )
     private Set<Perfil> perfis = new HashSet<>();
 
-    @OneToMany(mappedBy = "morador")
+    @OneToMany(mappedBy = "morador", fetch = FetchType.EAGER)
     private List<Sensor> sensores;
 
     public Morador(CriarMoradorDTO dto){
