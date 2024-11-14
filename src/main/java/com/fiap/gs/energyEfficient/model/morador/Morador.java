@@ -1,14 +1,21 @@
 package com.fiap.gs.energyEfficient.model.morador;
 
+import com.fiap.gs.energyEfficient.model.morador.dto.CriarMoradorDTO;
 import com.fiap.gs.energyEfficient.model.perfil.Perfil;
 import com.fiap.gs.energyEfficient.model.sensor.Sensor;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -16,7 +23,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "TB_GS_MORADOR")
-public class Morador {
+public class Morador implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gs_morador_seq")
@@ -39,14 +46,37 @@ public class Morador {
     @OneToOne(mappedBy = "morador", cascade = CascadeType.ALL)
     private ContatoMorador contatoMorador;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "TB_GS_MORADOR_PERFIL",
             joinColumns = @JoinColumn(name = "cd_morador"),
             inverseJoinColumns = @JoinColumn(name = "cd_perfil")
     )
-    private Set<Perfil> perfis;
+    private Set<Perfil> perfis = new HashSet<>();
 
     @OneToMany(mappedBy = "morador")
     private List<Sensor> sensores;
 
+    public Morador(CriarMoradorDTO dto){
+        this.nome = dto.nome();
+        this.idade = dto.idade();
+        this.estadoCivil = dto.estadoCivil();
+        dadosMorador = new DadosMorador(dto);
+        contatoMorador = new ContatoMorador(dto);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return perfis.stream().map(perfil -> new SimpleGrantedAuthority("ROLE_" + perfil.getNome()))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public String getPassword() {
+        return dadosMorador.getSenha();
+    }
+
+    @Override
+    public String getUsername() {
+        return dadosMorador.getCpf();
+    }
 }

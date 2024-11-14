@@ -1,9 +1,11 @@
 package com.fiap.gs.energyEfficient.model.morador;
 
+import com.fiap.gs.energyEfficient.model.morador.dto.CriarMoradorDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -36,5 +38,11 @@ public class DadosMorador {
     @OneToOne
     @JoinColumn(name = "cd_morador")
     private Morador morador;
+
+    public DadosMorador(CriarMoradorDTO dto){
+        this.cpf = dto.cpf();
+        this.dataNascimento = dto.dataNascimento();
+        this.rg = dto.rg();
+    }
 
 }

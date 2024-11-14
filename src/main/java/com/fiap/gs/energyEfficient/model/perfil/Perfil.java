@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -23,7 +24,7 @@ public class Perfil {
     @Column(name = "nm_perfil", nullable = false)
     private String nome;
 
-    @ManyToMany(mappedBy = "perfis")
-    private Set<Morador> moradores;
+    @ManyToMany(mappedBy = "perfis", fetch = FetchType.EAGER)
+    private Set<Morador> moradores = new HashSet<>();
 
 }

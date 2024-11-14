@@ -1,5 +1,6 @@
 package com.fiap.gs.energyEfficient.model.morador;
 
+import com.fiap.gs.energyEfficient.model.morador.dto.CriarMoradorDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +29,10 @@ public class ContatoMorador {
     @OneToOne
     @JoinColumn(name = "cd_morador")
     private Morador morador;
+
+    public ContatoMorador(CriarMoradorDTO dto){
+        this.email = dto.email();
+        this.telefone = dto.telefone();
+    }
 
 }
