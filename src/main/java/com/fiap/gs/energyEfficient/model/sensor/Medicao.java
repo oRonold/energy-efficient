@@ -1,5 +1,6 @@
 package com.fiap.gs.energyEfficient.model.sensor;
 
+import com.fiap.gs.energyEfficient.model.sensor.dto.CriarMedidaDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,10 +35,18 @@ public class Medicao {
     @Column(name = "vl_temperatura", nullable = false, precision = 5, scale = 2)
     private BigDecimal valorTemperatura;
 
-    @Column(name = "vl_consumo", nullable = false, precision = 5, scale = 2)
+    @Column(name = "vl_consumo_kW", nullable = false, precision = 8, scale = 2)
     private BigDecimal valorConsumo;
 
     @ManyToOne
     @JoinColumn(name = "cd_sensor")
     private Sensor sensor;
+
+    public Medicao(CriarMedidaDTO dto){
+        this.dataMedicao = LocalDateTime.now();
+        this.valorCorrente = dto.valorCorrente();
+        this.valorTensao = dto.valorTensao();
+        this.valorTemperatura = dto.valorTemperatura();
+        this.valorConsumo = BigDecimal.ZERO;
+    }
 }

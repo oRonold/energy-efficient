@@ -1,5 +1,6 @@
 package com.fiap.gs.energyEfficient.controller;
 
+import com.fiap.gs.energyEfficient.model.sensor.dto.CriarMedidaDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.CriarSensorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.DetalhesSensorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.SensorService;

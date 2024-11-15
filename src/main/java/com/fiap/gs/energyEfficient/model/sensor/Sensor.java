@@ -30,9 +30,6 @@ public class Sensor {
     @OneToMany(mappedBy = "sensor")
     private List<Medicao> medicoes;
 
-    @OneToMany(mappedBy = "sensor")
-    private List<Avisos> avisos;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cd_morador")
     private Morador morador;
@@ -40,6 +37,5 @@ public class Sensor {
     public Sensor(CriarSensorDTO dto){
         this.nome = dto.nome();
         medicoes = new ArrayList<>();
-        avisos = new ArrayList<>();
     }
 }
