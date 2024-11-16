@@ -39,8 +39,4 @@ public class MoradorService {
         var auth = manager.authenticate(token);
         return tokenService.criarToken((Morador) auth.getPrincipal());
     }
-
-    public Morador buscaPorId(Long id){
-        return repository.getReferenceById(id);
-    }
 }

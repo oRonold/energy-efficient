@@ -2,10 +2,7 @@ package com.fiap.gs.energyEfficient.controller;
 
 import com.fiap.gs.energyEfficient.model.morador.dto.CriarMoradorDTO;
 import com.fiap.gs.energyEfficient.model.morador.dto.DetalhesMoradorDTO;
-import com.fiap.gs.energyEfficient.model.sensor.dto.CriarMedidaDTO;
-import com.fiap.gs.energyEfficient.model.sensor.dto.DetalhesMedicaoDTO;
-import com.fiap.gs.energyEfficient.model.sensor.dto.DetalhesSensorDTO;
-import com.fiap.gs.energyEfficient.model.sensor.dto.SensorService;
+import com.fiap.gs.energyEfficient.model.sensor.dto.*;
 import com.fiap.gs.energyEfficient.services.MoradorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +29,12 @@ public class MoradorController {
         return ResponseEntity.created(uri).body(new DetalhesMoradorDTO(morador));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DetalhesMoradorDTO> buscarPorId(@PathVariable Long id){
-        var morador = service.buscaPorId(id);
-        return ResponseEntity.ok(new DetalhesMoradorDTO(morador));
+    @PostMapping("/sensores")
+    @Transactional
+    public ResponseEntity<DetalhesSensorDTO> criarSensor(@Valid @RequestBody CriarSensorDTO dto, UriComponentsBuilder builder){
+        var sensor = sensorService.cadastrar(dto);
+        var uri = builder.path("/{id}").buildAndExpand(sensor.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DetalhesSensorDTO(sensor));
     }
 
     @PostMapping("/{id}/medida")
