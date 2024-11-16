@@ -3,6 +3,7 @@ package com.fiap.gs.energyEfficient.controller;
 import com.fiap.gs.energyEfficient.model.sensor.dto.AtualizarSensorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.CriarSensorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.DetalhesSensorDTO;
+import com.fiap.gs.energyEfficient.model.sensor.dto.ListarMedidasDTO;
 import com.fiap.gs.energyEfficient.services.SensorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class SensorController {
     public ResponseEntity<Page<DetalhesSensorDTO>> listarSensores(Pageable pageable){
         var page = service.listarSensores(pageable);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}/medidas")
+    public ResponseEntity<Page<ListarMedidasDTO>> listarTodasMedidas(@PathVariable Long id, Pageable pageable){
+        var medicao = service.listarMedicoes(id, pageable);
+        return ResponseEntity.ok(medicao);
     }
 
     @PutMapping("/{id}")

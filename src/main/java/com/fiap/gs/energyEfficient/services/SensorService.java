@@ -3,10 +3,7 @@ package com.fiap.gs.energyEfficient.services;
 import com.fiap.gs.energyEfficient.model.morador.Morador;
 import com.fiap.gs.energyEfficient.model.sensor.Medicao;
 import com.fiap.gs.energyEfficient.model.sensor.Sensor;
-import com.fiap.gs.energyEfficient.model.sensor.dto.AtualizarSensorDTO;
-import com.fiap.gs.energyEfficient.model.sensor.dto.CriarMedidaDTO;
-import com.fiap.gs.energyEfficient.model.sensor.dto.CriarSensorDTO;
-import com.fiap.gs.energyEfficient.model.sensor.dto.DetalhesSensorDTO;
+import com.fiap.gs.energyEfficient.model.sensor.dto.*;
 import com.fiap.gs.energyEfficient.repositories.MedicaoRepository;
 import com.fiap.gs.energyEfficient.repositories.SensorRepository;
 import jakarta.validation.ValidationException;
@@ -61,6 +58,10 @@ public class SensorService {
         var sensor = sensorRepository.getReferenceById(id);
         sensor.atualizar(dto);
         return sensor;
+    }
+
+    public Page<ListarMedidasDTO> listarMedicoes(Long id, Pageable pageable){
+        return medicaoRepository.procurarTodasMedidasPorSensor(id, pageable).map(ListarMedidasDTO::new);
     }
 
 }
