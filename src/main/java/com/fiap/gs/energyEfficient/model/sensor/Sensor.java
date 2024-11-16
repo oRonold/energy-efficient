@@ -1,6 +1,7 @@
 package com.fiap.gs.energyEfficient.model.sensor;
 
 import com.fiap.gs.energyEfficient.model.morador.Morador;
+import com.fiap.gs.energyEfficient.model.sensor.dto.AtualizarSensorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.CriarSensorDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -37,5 +38,9 @@ public class Sensor {
     public Sensor(CriarSensorDTO dto){
         this.nome = dto.nome();
         medicoes = new ArrayList<>();
+    }
+
+    public void atualizar(AtualizarSensorDTO dto){
+        this.nome = dto.nome();
     }
 }

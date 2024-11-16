@@ -1,5 +1,6 @@
 package com.fiap.gs.energyEfficient.controller;
 
+import com.fiap.gs.energyEfficient.model.sensor.dto.AtualizarSensorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.CriarSensorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.DetalhesSensorDTO;
 import com.fiap.gs.energyEfficient.services.SensorService;
@@ -31,6 +32,13 @@ public class SensorController {
     public ResponseEntity<Page<DetalhesSensorDTO>> listarSensores(Pageable pageable){
         var page = service.listarSensores(pageable);
         return ResponseEntity.ok(page);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DetalhesSensorDTO> atualizarSensor(@PathVariable Long id, @Valid @RequestBody AtualizarSensorDTO dto){
+        var sensor = service.atualizar(id, dto);
+        return ResponseEntity.ok().body(new DetalhesSensorDTO(sensor));
     }
 
 }
