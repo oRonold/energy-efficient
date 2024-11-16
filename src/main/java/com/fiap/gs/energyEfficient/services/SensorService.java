@@ -1,13 +1,17 @@
-package com.fiap.gs.energyEfficient.model.sensor.dto;
+package com.fiap.gs.energyEfficient.services;
 
 import com.fiap.gs.energyEfficient.model.morador.Morador;
 import com.fiap.gs.energyEfficient.model.sensor.Medicao;
 import com.fiap.gs.energyEfficient.model.sensor.Sensor;
+import com.fiap.gs.energyEfficient.model.sensor.dto.CriarMedidaDTO;
+import com.fiap.gs.energyEfficient.model.sensor.dto.CriarSensorDTO;
+import com.fiap.gs.energyEfficient.model.sensor.dto.DetalhesSensorDTO;
 import com.fiap.gs.energyEfficient.repositories.MedicaoRepository;
 import com.fiap.gs.energyEfficient.repositories.SensorRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +25,6 @@ public class SensorService {
 
     @Autowired
     private MedicaoRepository medicaoRepository;
-    @Autowired
-    private ServletWebServerFactoryAutoConfiguration servletWebServerFactoryAutoConfiguration;
 
     public Sensor cadastrar(CriarSensorDTO dto){
         var sensor = new Sensor(dto);
@@ -48,6 +50,10 @@ public class SensorService {
 
         medicaoRepository.save(medicao);
         return medicao;
+    }
+
+    public Page<DetalhesSensorDTO> listarSensores(Pageable pageable) {
+        return sensorRepository.findAll(pageable).map(DetalhesSensorDTO::new);
     }
 
 }

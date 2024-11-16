@@ -4,6 +4,7 @@ import com.fiap.gs.energyEfficient.model.morador.dto.CriarMoradorDTO;
 import com.fiap.gs.energyEfficient.model.morador.dto.DetalhesMoradorDTO;
 import com.fiap.gs.energyEfficient.model.sensor.dto.*;
 import com.fiap.gs.energyEfficient.services.MoradorService;
+import com.fiap.gs.energyEfficient.services.SensorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +28,6 @@ public class MoradorController {
         var morador = service.cadastrar(dto);
         var uri = builder.path("/{id}").buildAndExpand(morador).toUri();
         return ResponseEntity.created(uri).body(new DetalhesMoradorDTO(morador));
-    }
-
-    @PostMapping("/sensores")
-    @Transactional
-    public ResponseEntity<DetalhesSensorDTO> criarSensor(@Valid @RequestBody CriarSensorDTO dto, UriComponentsBuilder builder){
-        var sensor = sensorService.cadastrar(dto);
-        var uri = builder.path("/{id}").buildAndExpand(sensor.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DetalhesSensorDTO(sensor));
     }
 
     @PostMapping("/{id}/medida")
