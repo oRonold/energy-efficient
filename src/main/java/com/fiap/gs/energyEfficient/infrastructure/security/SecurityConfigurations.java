@@ -25,12 +25,10 @@ public class SecurityConfigurations {
     @Bean
     public SecurityFilterChain security(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(sm -> sm.maximumSessions(1))
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/moradores").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    req.requestMatchers(HttpMethod.GET, "/moradores/{id}").hasAuthority("ROLE_ADMIN");
-                    req.requestMatchers(HttpMethod.POST, "/admin").hasAuthority("ROLE_ADMIN");
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
@@ -38,12 +36,13 @@ public class SecurityConfigurations {
     }
 
     @Bean
-    public AuthenticationManager manager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-
-    @Bean
     public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
+        return configuration.getAuthenticationManager();
+    }
+
 }

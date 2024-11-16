@@ -1,7 +1,6 @@
 package com.fiap.gs.energyEfficient.model.morador;
 
 import com.fiap.gs.energyEfficient.model.morador.dto.CriarMoradorDTO;
-import com.fiap.gs.energyEfficient.model.perfil.Perfil;
 import com.fiap.gs.energyEfficient.model.sensor.Sensor;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -46,13 +45,6 @@ public class Morador implements UserDetails {
     @OneToOne(mappedBy = "morador", cascade = CascadeType.ALL)
     private ContatoMorador contatoMorador;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "TB_GS_MORADOR_PERFIL",
-            joinColumns = @JoinColumn(name = "cd_morador"),
-            inverseJoinColumns = @JoinColumn(name = "cd_perfil")
-    )
-    private Set<Perfil> perfis = new HashSet<>();
-
     @OneToMany(mappedBy = "morador", fetch = FetchType.EAGER)
     private List<Sensor> sensores;
 
@@ -66,17 +58,16 @@ public class Morador implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return perfis.stream().map(perfil -> new SimpleGrantedAuthority("ROLE_" + perfil.getNome()))
-                .collect(Collectors.toSet());
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getPassword() {
-        return dadosMorador.getSenha();
+        return this.dadosMorador.getSenha();
     }
 
     @Override
     public String getUsername() {
-        return dadosMorador.getCpf();
+        return this.dadosMorador.getCpf();
     }
 }

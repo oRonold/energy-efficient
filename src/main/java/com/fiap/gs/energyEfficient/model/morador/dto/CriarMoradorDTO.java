@@ -30,7 +30,5 @@ public record CriarMoradorDTO(
         LocalDate dataNascimento,
         @NotEmpty
         @Length(max = 15)
-        String rg,
-        @NotEmpty
-        String role) {
+        String rg) {
 }

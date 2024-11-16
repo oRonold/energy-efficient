@@ -29,7 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = recuperarToken(request);
         if(token != null) {
             var subject = tokenService.getSubject(token);
-            var user = moradorRepository.recuperarMoradorPorCpf(subject);
+            var user = moradorRepository.findByDadosMoradorCpf(subject).get();
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

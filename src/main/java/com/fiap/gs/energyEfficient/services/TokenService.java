@@ -22,7 +22,7 @@ public class TokenService {
             Algorithm algoritmo = Algorithm.HMAC256(senhaToken);
             return JWT.create()
                     .withIssuer("ENERGY EFFICIENT")
-                    .withSubject(morador.getDadosMorador().getCpf())
+                    .withSubject(morador.getUsername())
                     .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
                     .sign(algoritmo);
         } catch (JWTCreationException e){
