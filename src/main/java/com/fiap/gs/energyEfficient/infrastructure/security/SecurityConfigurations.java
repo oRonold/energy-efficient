@@ -22,6 +22,8 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter filter;
 
+    private static final String[] SWAGGER = { "/swagger-ui/**", "/v3/api-docs/**" };
+
     @Bean
     public SecurityFilterChain security(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
@@ -29,6 +31,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/moradores").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    req.requestMatchers(SWAGGER).permitAll();
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
