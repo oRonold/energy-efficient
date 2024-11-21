@@ -3,15 +3,10 @@ package com.fiap.gs.energyEfficient.model.sensor.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 
 public record CriarMedidaDTO(
-        @Schema(description = "ID do sensor para a medição")
-        @NotNull
-        Long idSensor,
-
         @Schema(description = "Valor da corrente registrada", example = "12")
         @NotNull
         @Max(value = 50)
