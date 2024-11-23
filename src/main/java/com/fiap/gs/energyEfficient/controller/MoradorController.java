@@ -31,7 +31,7 @@ public class MoradorController {
     @Transactional
     @Operation(summary = "Cadastro de morador", description = "Retorna os dados do morador cadastrado")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Morador cadastrado com sucesso", content = @Content(schema = @Schema(implementation = DetalhesMoradorDTO.class), mediaType = "application/json")),
+            @ApiResponse(responseCode = "201", description = "Morador cadastrado com sucesso", content = @Content(schema = @Schema(implementation = DetalhesMoradorDTO.class), mediaType = "application/json")),
             @ApiResponse(responseCode = "400", description = "Dados inseridos incorretos", content = @Content)
     })
     public ResponseEntity<DetalhesMoradorDTO> cadastrar(@Valid @RequestBody CriarMoradorDTO dto, UriComponentsBuilder builder){
