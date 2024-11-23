@@ -21,9 +21,9 @@ OU
 
 ## Vídeos 🎬
 
-Vídeo Pitch: 
+Vídeo Pitch: https://youtu.be/hCEJebipK7I
 
-Vídeo Demonstrativo: 
+Vídeo Demonstrativo: https://youtu.be/yG7RfR3yOZI
 
 ## Tecnologias utilizadas 🔎
 
